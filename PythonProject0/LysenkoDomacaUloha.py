@@ -2,6 +2,19 @@ from tkinter import Tk, Label, Button, Entry, Toplevel
 from PIL import Image, ImageTk
 import random
 import matplotlib.pyplot as plt
+import sys
+import os
+
+# Funkcia na získanie správnej cesty k obrázkom v prípade .exe alebo pri spustení z kódu
+def resource_path(relative_path):
+    """Získa správnu cestu k súboru (obrázku) v prípade .exe alebo v prípade pôvodného skriptu."""
+    try:
+        # Na získanie cesty z pyinstaller
+        base_path = sys._MEIPASS
+    except Exception:
+        # Pri štandardnom spustení skriptu
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 # Funkcia na generovanie čísel a zobrazenie výsledkov
 def open_new_window():
@@ -48,12 +61,12 @@ m.minsize(width=600, height=600)
 m.title("Lysenko_DomacaUloha")
 
 # Načítanie prvého obrázka a zmena jeho veľkosti
-image1 = Image.open("Fakulta_Výrobných_technológií_TUKE_logo.png")
+image1 = Image.open(resource_path("Fakulta_Výrobných_technológií_TUKE_logo.png"))
 image1 = image1.resize((100, 100))
 photo1 = ImageTk.PhotoImage(image1)
 
 # Načítanie druhého obrázka a zmena jeho veľkosti
-image2 = Image.open("A_PT.png")  # Druhý obrázok
+image2 = Image.open(resource_path("A_PT.png"))  # Druhý obrázok
 image2 = image2.resize((184, 184))
 photo2 = ImageTk.PhotoImage(image2)
 
